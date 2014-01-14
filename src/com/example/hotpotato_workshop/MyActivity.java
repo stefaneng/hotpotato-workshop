@@ -2,6 +2,7 @@ package com.example.hotpotato_workshop;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ public class MyActivity extends Activity {
     Button host, connect;
     TextView txtInfo;
     EditText txtIP;
+    Vibrator vibe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,11 @@ public class MyActivity extends Activity {
         host.setOnClickListener(onClickListener);
         connect.setOnClickListener(onClickListener);
 
+        initializeVibrator();
+    }
+
+    void initializeVibrator() {
+        vibe = (Vibrator) getSystemService(VIBRATOR_SERVICE);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -35,6 +42,7 @@ public class MyActivity extends Activity {
         public void onClick(View v) {
             if (v.equals(host)) {
                 Log.i("workshop", "host");
+                vibe.vibrate(500);
             } else if (v.equals(connect)) {
                 Log.i("workshop", "connect");
             }
