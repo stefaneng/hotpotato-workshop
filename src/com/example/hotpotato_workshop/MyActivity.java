@@ -1,6 +1,10 @@
 package com.example.hotpotato_workshop;
 
 import android.app.Activity;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -14,7 +18,8 @@ public class MyActivity extends Activity {
     TextView txtInfo;
     EditText txtIP;
     Vibrator vibe;
-
+    SensorManager sensorManager;
+    Sensor sensor;
     /**
      * Called when the activity is first created.
      */
@@ -32,6 +37,27 @@ public class MyActivity extends Activity {
         initializeVibrator();
     }
 
+    void initializeSensors() {
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(eventListener, sensor, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    SensorEventListener eventListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                txtInfo.setText(String.valueOf(event.values[0]));
+                Log.i("workshop", String.valueOf(event.values[0]));
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
+
     void initializeVibrator() {
         vibe = (Vibrator) getSystemService(VIBRATOR_SERVICE);
     }
@@ -44,6 +70,7 @@ public class MyActivity extends Activity {
                 vibe.vibrate(500);
             } else if (v.equals(connect)) {
                 Log.i("workshop", "connect");
+                initializeSensors();
             }
 
         }
