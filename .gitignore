@@ -26,5 +26,5 @@ proguard/
 *.iml
 *.ipr
 *.iws
-.idea/
+.idea/*
 local.properties

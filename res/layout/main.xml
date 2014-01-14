@@ -12,14 +12,18 @@
     <Button android:layout_width="wrap_content"
             android:text="host"
             android:layout_height="wrap_content"
+            android:id="@+id/butHost"
             />
     <Button android:layout_width="wrap_content"
             android:text="connect"
             android:layout_height="wrap_content"
+            android:id="@+id/butConnect"
             />
     <EditText android:layout_width="wrap_content"
               android:text="192.168.1.1"
-              android:layout_height="wrap_content"/>
+              android:layout_height="wrap_content"
+              android:id="@+id/txtIP"
+            />
     <TextView android:layout_width="wrap_content"
               android:id="@+id/textInfo"
               android:layout_height="wrap_content"
