@@ -67,10 +67,16 @@ public class MyActivity extends Activity {
         public void onClick(View v) {
             if (v.equals(host)) {
                 Log.i("workshop", "host");
-                vibe.vibrate(500);
+                // Test vibrate stuff
+                // vibe.vibrate(500);
+                Server server = new Server(null);
+                server.start();
+
             } else if (v.equals(connect)) {
                 Log.i("workshop", "connect");
-                initializeSensors();
+                //initializeSensors();
+                Client client = new Client(String.valueOf(txtIP.getText()));
+                client.start();
             }
 
         }
