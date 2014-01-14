@@ -30,6 +30,7 @@ public class Client extends Thread {
                     new OutputStreamWriter(
                             socket.getOutputStream()));
             writer.write("Hello world");
+            writer.newLine();
             Log.i("workshop", "wrote data");
             writer.flush();
             writer.close();
