@@ -1,16 +1,16 @@
-package com.example.hotpotato_workshop;
+package com.example.hotpotato_2;
 
 import android.util.Log;
 
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 
 /**
- * Created by Stefan Eng on 1/13/14.
+ * Created by ngorgi on 1/13/14.
  */
 public class Client extends Thread {
     String ip;
+
     public Client(String ip) {
         this.ip = ip;
     }
@@ -18,7 +18,6 @@ public class Client extends Thread {
     @Override
     public void run() {
         super.run();
-
         try {
             Log.i("workshop", "starting connection");
             Socket socket = new Socket(ip, 12345);
@@ -29,13 +28,30 @@ public class Client extends Thread {
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(
                             socket.getOutputStream()));
-            writer.write("Hello world");
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            socket.getInputStream()));
+
+
+
+            writer.write("Hello from client");
             writer.newLine();
             Log.i("workshop", "wrote data");
             writer.flush();
+
+
+            String s = reader.readLine();
+            Log.i("workshop", "read in " + String.valueOf(s));
+
+
+
             writer.close();
+            Log.i("workshop", "connection closed");
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }
